@@ -27,18 +27,28 @@ function asyncList() {
 
 // Runs tasks in order
 function syncList() {
+  // Return the resulting promise
   return runList.reduce((lastTask, taskToRun) => {
+    // Wait for the previous task to run then run the current task
     return lastTask.then(() => {
+      // return the promise from the current task.
+      // This promise becomes lastTask on the next reduce iteration
       return taskToRun();
     });
-  }, Promise.resolve());
+  }, Promise.resolve()); // Set the initial value for reduce
 }
 
 Promise.resolve()
+  // Test async lists
   .then(() => {
     console.log('asyncList');
     return asyncList();
   })
+  .then(() => {
+    console.log('Done');
+  })
+
+  // Test syncList
   .then(() => {
     console.log('\n\nsyncList');
     return syncList();
