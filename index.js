@@ -1,8 +1,9 @@
 function delay(timeOut, message) {
   return new Promise((resolve, reject) => {
-    console.log('starting :', message);
+    console.log(message + ' start');
     setTimeout(() => {
-      console.log(message + ' Time: ' + timeOut);
+      console.log(message + ' executing. (' + timeOut + ')');
+      finishTask(message);
       resolve();
     }, timeOut);
   });
@@ -22,6 +23,16 @@ let runList = [
   () => {
     return runTask(() => {
       return delay(500, 'B');
+    });
+  },
+  () => {
+    return runTask(() => {
+      return delay(999, 'C');
+    });
+  },
+  () => {
+    return runTask(() => {
+      return delay(501, 'D');
     });
   }
 ];
@@ -43,7 +54,7 @@ function syncList() {
     return lastTask.then(() => {
       // return the promise from the current task.
       // This promise becomes lastTask on the next reduce iteration
-      return taskToRun();
+      return runTask(taskToRun);
     });
   }, Promise.resolve()); // Set the initial value for reduce
 }
@@ -54,6 +65,10 @@ function exclusiveTask(action) {
 
 function runTask(action) {
   return action();
+}
+
+function finishTask(name) {
+  console.log(name + ' done.');
 }
 
 Promise.resolve()
