@@ -87,5 +87,5 @@ Promise.resolve()
     return syncList();
   })
   .then(() => {
-    console.log('Done');
+    console.log('Done\n\n\n');
   });

@@ -1,5 +1,5 @@
 {
-  "scripts": { "test" : "node Simple.js" }, 
+  "scripts": { "test" : "node Simple.js && node exclusive.js" }, 
   "dependencies": {
     "eslint": "^4.16.0",
     "eslint-config-google": "^0.9.1",
