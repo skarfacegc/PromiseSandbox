@@ -4,9 +4,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "run index.js",
+            "label": "run",
             "type": "shell",
-            "command": "node index.js",
+            "command": "npm test",
             "group": {
                 "kind": "build",
                 "isDefault": true
