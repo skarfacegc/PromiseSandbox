@@ -1,5 +1,6 @@
 function delay(timeOut, message) {
   return new Promise((resolve, reject) => {
+    console.log('starting :', message);
     setTimeout(() => {
       console.log(message + ' Time: ' + timeOut);
       resolve();
@@ -8,6 +9,11 @@ function delay(timeOut, message) {
 }
 
 let runList = [
+  () => {
+    return exclusiveTask(() => {
+      return delay(1001, 'exclusive');
+    });
+  },
   () => {
     return delay(1000, 'A');
   },
@@ -36,6 +42,10 @@ function syncList() {
       return taskToRun();
     });
   }, Promise.resolve()); // Set the initial value for reduce
+}
+
+function exclusiveTask(action) {
+  return action();
 }
 
 Promise.resolve()
