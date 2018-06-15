@@ -11,14 +11,18 @@ function delay(timeOut, message) {
 let runList = [
   () => {
     return exclusiveTask(() => {
-      return delay(1001, 'exclusive');
+      return delay(999, 'exclusive');
     });
   },
   () => {
-    return delay(1000, 'A');
+    return runTask(() => {
+      return delay(1000, 'A');
+    });
   },
   () => {
-    return delay(500, 'B');
+    return runTask(() => {
+      return delay(500, 'B');
+    });
   }
 ];
 
@@ -45,6 +49,10 @@ function syncList() {
 }
 
 function exclusiveTask(action) {
+  return action();
+}
+
+function runTask(action) {
   return action();
 }
 
